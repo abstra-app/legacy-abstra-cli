@@ -1,0 +1,25 @@
+{
+  "name": "abstra-functions-cli",
+  "version": "1.0.0",
+  "description": "Instant deploy any function with abstra",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abstra-app/abstra-functions-cli.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abstra-app/abstra-functions-cli/issues"
+  },
+  "homepage": "https://github.com/abstra-app/abstra-functions-cli#readme",
+  "dependencies": {
+    "adm-zip": "^0.4.16",
+    "esprima": "^4.0.1",
+    "node-fetch": "^2.6.1"
+  }
+}
