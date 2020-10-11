@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import AdmZip from "adm-zip";
 import esprima from "esprima";
 import fs from "fs";
