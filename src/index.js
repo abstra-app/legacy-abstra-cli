@@ -34,8 +34,7 @@ async function upload(file) {
 }
 
 async function deploy(url) {
-    console.log(url);
-    await fetch("https://abstra-functions.herokuapp.com/cli", {
+    const res = await fetch("https://abstra-functions.herokuapp.com/cli", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -44,6 +43,8 @@ async function deploy(url) {
             path: url.split('/')[url.split("/").length - 1]
         })
     })
+    const json = await res.json();
+    return json.url;
 }
 
 async function compile(file) {
@@ -104,7 +105,7 @@ exports.handler = async (event, context) => {
 `;
 
     const zip = new AdmZip();
-    zip.addFile("main.js", Buffer.alloc(deployableSript.length, deployableSript));
+    zip.addFile("index.js", Buffer.alloc(deployableSript.length, deployableSript));
 
     await Promise.all(
         packages
@@ -117,9 +118,9 @@ exports.handler = async (event, context) => {
     );
 
     const buffer = zip.toBuffer();
-    console.log(buffer);
     const url = await upload(buffer);
-    await deploy(url);
+    const base = await deploy(url);
+    await Promise.all(routes.map(async route => console.log(base + "/" + route.path)));
 }
 
 compile(
