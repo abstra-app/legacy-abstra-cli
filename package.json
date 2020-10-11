@@ -1,6 +1,6 @@
 {
   "name": "@abstra.app/abstra-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Instant deploy any function with abstra",
   "main": "src/index.js",
   "type": "module",
