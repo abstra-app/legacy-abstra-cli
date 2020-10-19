@@ -41,12 +41,10 @@ async function deploy(url) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-            path: url.split('/')[url.split("/").length - 1]
-        })
+        body: JSON.stringify({ url })
     })
     const json = await res.json();
-    return json.url;
+    return json.base;
 }
 
 async function compile(file) {
@@ -113,7 +111,7 @@ exports.handler = async (event, context) => {
         packages
             .filter(p => !p.package.startsWith("."))
             .map(async pkg => {
-                const res = await fetch(`https://unpkg.com/${pkg}`);
+                const res = await fetch(`https://unpkg.com/${pkg.package}`);
                 const content = await res.text();
                 zip.addFile(`${pkg.package}.js`, content);
             })
@@ -122,6 +120,7 @@ exports.handler = async (event, context) => {
     const buffer = zip.toBuffer();
     const url = await upload(buffer);
     const base = await deploy(url);
+
     console.log("This is an experimental feature. Use with caution!");
     console.log("More in https://abstra.app");
     console.log("Your functions will be available in a few seconds in:")
